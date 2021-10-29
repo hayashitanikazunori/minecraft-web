@@ -18,6 +18,7 @@ class CreateAnnouncementsTable extends Migration
             $table->string('title', 100)->comment('タイトル');
             $table->string('publicing_status', 3)->comment('公開ステータス');
             $table->string('body')->comment('本文');
+            $table->foreignId('admin_id')->constrained('admins');
             $table->timestamps();
         });
     }
