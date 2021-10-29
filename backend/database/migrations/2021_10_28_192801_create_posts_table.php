@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title', 100)->comment('タイトル');
             $table->string('thumbnail_images')->comment('サムネイル画像');
-            $table->string('excerpt', 255)->comment('概要');
+            $table->string('description', 255)->comment('概要');
             $table->string('material', 255)->comment('材料');
             $table->string('recipe', 1000)->comment('作り方');
             $table->string('publicing_status', 3)->comment('公開ステータス');
