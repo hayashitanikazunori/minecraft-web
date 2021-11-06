@@ -37,8 +37,6 @@ ps:
 	docker compose ps
 logs:
 	docker compose logs
-logs-watch:
-	docker compose logs --follow
 log-web:
 	docker compose logs web
 log-web-watch:
@@ -61,21 +59,12 @@ fresh:
 	docker compose exec app php artisan migrate:fresh --seed
 seed:
 	docker compose exec app php artisan db:seed
-dacapo:
-	docker compose exec app php artisan dacapo
-rollback-test:
-	docker compose exec app php artisan migrate:fresh
-	docker compose exec app php artisan migrate:refresh
 tinker:
 	docker compose exec app php artisan tinker
 route:
 	docker compose exec app php artisan route:list
 test:
 	docker compose exec app php artisan test
-optimize:
-	docker compose exec app php artisan optimize
-optimize-clear:
-	docker compose exec app php artisan optimize:clear
 cache:
 	docker compose exec app composer dump-autoload -o
 	@make optimize
@@ -85,36 +74,5 @@ cache-clear:
 	docker compose exec app composer clear-cache
 	@make optimize-clear
 	docker compose exec app php artisan event:clear
-npm:
-	@make npm-install
-npm-install:
-	docker compose exec web npm install
-npm-dev:
-	docker compose exec web npm run dev
-npm-watch:
-	docker compose exec web npm run watch
-npm-watch-poll:
-	docker compose exec web npm run watch-poll
-npm-hot:
-	docker compose exec web npm run hot
-yarn:
-	docker compose exec web yarn
-yarn-install:
-	@make yarn
-yarn-dev:
-	docker compose exec web yarn dev
-yarn-watch:
-	docker compose exec web yarn watch
-yarn-watch-poll:
-	docker compose exec web yarn watch-poll
-yarn-hot:
-	docker compose exec web yarn hot
 db:
 	docker compose exec db bash
-sql:
-	docker compose exec db bash -c 'mysql -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
-ide-helper:
-	docker compose exec app php artisan clear-compiled
-	docker compose exec app php artisan ide-helper:generate
-	docker compose exec app php artisan ide-helper:meta
-	docker compose exec app php artisan ide-helper:models --nowrite
