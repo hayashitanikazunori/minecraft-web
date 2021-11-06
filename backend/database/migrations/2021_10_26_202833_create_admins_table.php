@@ -17,6 +17,7 @@ class CreateAdminsTable extends Migration
             $table->id();
             $table->string('email')->comment('メールアドレス');
             $table->string('password')->comment('パスワード');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

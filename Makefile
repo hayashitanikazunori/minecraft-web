@@ -2,17 +2,6 @@ up:
 	docker compose up -d
 build:
 	docker compose build --no-cache --force-rm
-laravel-install:
-	docker compose exec app composer create-project --prefer-dist laravel/laravel .
-create-project:
-	mkdir -p backend
-	@make build
-	@make up
-	@make laravel-install
-	docker compose exec app php artisan key:generate
-	docker compose exec app php artisan storage:link
-	docker compose exec app chmod -R 777 storage bootstrap/cache
-	@make fresh
 install-recommend-packages:
 	docker compose exec app composer require doctrine/dbal
 	docker compose exec app composer require --dev ucan-lab/laravel-dacapo
@@ -79,6 +68,8 @@ rollback-test:
 	docker compose exec app php artisan migrate:refresh
 tinker:
 	docker compose exec app php artisan tinker
+route:
+	docker compose exec app php artisan route:list
 test:
 	docker compose exec app php artisan test
 optimize:
@@ -122,8 +113,6 @@ db:
 	docker compose exec db bash
 sql:
 	docker compose exec db bash -c 'mysql -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
-redis:
-	docker compose exec redis redis-cli
 ide-helper:
 	docker compose exec app php artisan clear-compiled
 	docker compose exec app php artisan ide-helper:generate

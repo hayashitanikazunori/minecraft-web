@@ -1,0 +1,16 @@
+# TODO
+# X-XSRF-TOKENがあっていないので、ヘッダーの設定のやり方を見直す必要がある。
+@XSRF-TOKEN = 'eyJpdiI6InR3YStNWDRPd3hUTWFmekpLRGQ2OUE9PSIsInZhbHVlIjoiaFNRSjJTT0ZTcmFCMFF5S2VTbGo5eUtmcG9CSTBjWnA2VC9QUHo3UXVQUVdKMnlBRWtLWXNnYXdjZnNicU9SRnBORzRqd29VOTZVVmFNenh6K1VpZUR4YUJXOHdTV3g4M0VLS2FJei8za0wzZXdKOEVYQi9zR0licWFkMmFIQ1MiLCJtYWMiOiIzN2U2OTRhYTE4NTM4ZDg5NzY1MDQ3NmVkZGVkM2RhZTBmMTNkODQ2MjRhODVhNmE0OTEwN2U4YjgwY2E4NGNiIiwidGFnIjoiIn0%3D'
+
+### 管理者ログインで正しい値がJSONで返ってくる
+POST http://localhost/admin/login
+content-type: application/json
+X-XSRF-TOKEN: {{XSRF-TOKEN}}
+
+{
+    "email": "admin@example.com",
+    "password": "password"
+}
+
+### トークンヘッダーを受け取る
+GET http://localhost/sanctum/csrf-cookie
