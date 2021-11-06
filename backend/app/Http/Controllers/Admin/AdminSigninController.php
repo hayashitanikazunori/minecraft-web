@@ -6,23 +6,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\SigninAdminRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AdminSigninController extends Controller
 {
-    public function login(SigninAdminRequest $request): JsonResponse
+    public function login(Request $request): JsonResponse
     {
     /*************************************************
          * TODO
-         * テスト検証を行う。
+         * リファクタリングをしたい。
+         * 特にフォームリクエストにできるか？
     *************************************************/
-        $credentials = $request->validated();
-        if (Auth::attempt($credentials)) {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => 'required',
+        ]);
+
+        if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            return response()->json(['message' => 'ログインしました。']);
+            return new JsonResponse(['message' => 'ログインしました']);
         }
-        return back()->withErrors(['error' => 'login error',]);
 
         throw new Exception('ログインに失敗しました。再度お試しください');
     }

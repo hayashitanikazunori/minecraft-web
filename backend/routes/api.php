@@ -18,10 +18,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-/*************************************************
- * TODO
- * ここのミドルウェア合っているか確認すること。
-*************************************************/
 Route::middleware('auth:sanctum')->get('/admin', function (Request $request) {
     return $request->admin();
 });
