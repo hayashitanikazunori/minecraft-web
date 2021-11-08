@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->get('/admin', function (Request $request) {
-    return $request->admin();
+    return $request->auth('admin')->user();
 });
