@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
+use Exception;
 
 class RegisterController extends Controller
 {
@@ -65,15 +67,22 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(array $data): JsonResponse
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'avatar_image' => $data['avatar_image'],
-            'profile' => $data['profile'],
-            'freezing_status' => $data['freezing_status'],
-        ]);
+        try {
+                $userCreate = User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                    'avatar_image' => $data['avatar_image'],
+                    'profile' => $data['profile'],
+                    'freezing_status' => $data['freezing_status'],
+                ]);
+                var_dump($userCreate);
+                return new JsonResponse(['message' => '作成成功しました。' ]);
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            return new Exception("エラー:{$error}");
+        }
     }
 }
