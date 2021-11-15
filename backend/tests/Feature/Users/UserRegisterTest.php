@@ -17,7 +17,7 @@ class UserRegisterTest extends TestCase
         $response = $this->postJson('/register', [
             'name' => 'user1',
             'email' => 'user1@example.com',
-            'password' => bcrypt('password'),
+            'password' => 'password',
             'avatar_image' => 'avatar_image',
             'profile' => '初めまして。userです',
             'freezing_status' => '1',
