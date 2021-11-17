@@ -41,7 +41,7 @@ class RegisterController extends Controller
                 ];
 
                 return new JsonResponse($json);
-            }catch (Exception $exception){
+            } catch (Exception $exception){
             return new JsonResponse([ 'message' => '登録に失敗しました。再度お試しください', 'errorMessage' => $exception]);
         }
     }
