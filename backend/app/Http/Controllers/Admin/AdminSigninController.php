@@ -15,7 +15,7 @@ class AdminSigninController extends Controller
     /*************************************************
      * TODO
      * リファクタリングをしたい。
-     * 特にフォームリクエストにできるか？
+     * バリデーションをフォームリクエストに移したい。
     *************************************************/
         $credentials = $request->validate([
             'email' => ['required', 'email'],

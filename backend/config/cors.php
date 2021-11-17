@@ -21,6 +21,8 @@ return [
         '/register',
         '/users',
         '/users/*',
+        '/login*',
+        '/logout',
         'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
