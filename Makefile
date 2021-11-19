@@ -71,8 +71,6 @@ cache:
 	docker compose exec app php artisan event:cache
 	docker compose exec app php artisan view:cache
 cache-clear:
-	docker compose exec app composer clear-cache
-	@make optimize-clear
-	docker compose exec app php artisan event:clear
+	docker compose exec app php artisan config:clear
 db:
 	docker compose exec db bash

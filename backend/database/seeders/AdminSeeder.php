@@ -3,19 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Admin;
 
 class AdminSeeder extends Seeder
 {
-    /**
-     *
-     * @return void
-     */
     public function run()
     {
-        DB::table('admins')->insert([
-            'email' => 'admin@example.com',
-            'password' => bcrypt('password'),
-        ]);
+        Admin::factory()->count(100)->create();
     }
 }

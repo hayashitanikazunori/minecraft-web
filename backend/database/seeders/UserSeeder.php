@@ -3,18 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
-    /**
-     *
-     * @return void
-     */
     public function run()
     {
-        DB::table('posts')->insert([
-            //
-        ]);
+        User::factory()->count(100)->create();
     }
 }

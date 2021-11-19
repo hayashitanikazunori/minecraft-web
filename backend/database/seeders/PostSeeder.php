@@ -3,18 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Post;
 
 class PostSeeder extends Seeder
 {
-    /**
-     *
-     * @return void
-     */
     public function run()
     {
-        DB::table('posts')->insert([
-            //
-        ]);
+        Post::factory()->count(100)->create();
     }
 }
