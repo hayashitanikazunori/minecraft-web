@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\JsonResponse;
 
 class User extends Authenticatable
 {
@@ -58,9 +59,28 @@ class User extends Authenticatable
 
     public function updateUserFindById($id, $user)
     {
+        /*************************************************
+         * TODO
+         * User/controllerにデータベースの処理を記述してるままなので、
+         * モデルに処理を移す時にここの処理を使うこと。
+         * 未検証なので、再調整は必須である。
+        *************************************************/
         // return $this->find($id);
         return $this->where([
             'id' => $id['id']
         ]);
+    }
+
+    public function changeFreezingStatus($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->freezing_status == 0) {
+            $user->freezing_status = 1;
+            return $user->save();
+        }else {
+            $user->freezing_status = 0;
+            return $user->save();
+        }
     }
 }

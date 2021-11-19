@@ -22,12 +22,6 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            /**
-             * TODO adminのログイン後のページとuserのログイン後のリダイレクトページの設定をすること。
-             */
-            if ($guard == "admin" && Auth::guard($guard)->check()) {
-                return redirect('/home');
-            }
             if (Auth::guard($guard)->check()) {
                 return redirect('/home');
             }
