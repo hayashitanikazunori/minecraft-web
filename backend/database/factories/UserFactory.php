@@ -13,23 +13,16 @@ class UserFactory extends Factory
 
     public function definition()
     {
-        // $fakeUser = $this->faker->name();
-
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('password'),
-            'avatar_image' => 'avatar_image',
-            'profile' => "初めまして。",
+            'avatar_image' => 'TRgnw2T9d9YXg7PChKQgdA6KgitkdLzHmQVQhZ2p.jpg',
+            'profile' => $this->faker->realText(100, 2),
             'freezing_status' => 0,
             'remember_token' => Str::random(10),
         ];
     }
-
-    // public function fakeUser()
-    // {
-    //     $this->faker->name();
-    // }
 
     public function unverified()
     {
