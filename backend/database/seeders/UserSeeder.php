@@ -7,10 +7,6 @@ use App\Models\User;
 
 class UserSeeder extends Seeder
 {
-    /**
-     *
-     * @return void
-     */
     public function run()
     {
         User::factory()->count(100)->create();

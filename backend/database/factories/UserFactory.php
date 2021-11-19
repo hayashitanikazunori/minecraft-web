@@ -13,6 +13,8 @@ class UserFactory extends Factory
 
     public function definition()
     {
+        $random_date = $this->faker->dateTimeBetween('-1year', '-1day');
+
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
@@ -21,6 +23,8 @@ class UserFactory extends Factory
             'profile' => $this->faker->realText(100, 2),
             'freezing_status' => 0,
             'remember_token' => Str::random(10),
+            'created_at' => $random_date,
+            'updated_at' => $random_date,
         ];
     }
 
