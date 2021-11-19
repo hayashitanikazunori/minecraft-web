@@ -3,7 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 class UserSeeder extends Seeder
 {
@@ -13,8 +17,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('posts')->insert([
-            //
-        ]);
+        User::factory()->count(100)->create();
     }
 }
