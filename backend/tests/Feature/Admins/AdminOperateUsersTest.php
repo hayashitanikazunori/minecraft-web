@@ -7,8 +7,6 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Admin;
 use App\Models\User;
-use Laravel\Sanctum\Sanctum;
-
 
 class AdminOperateUsersTest extends TestCase
 {
@@ -31,7 +29,7 @@ class AdminOperateUsersTest extends TestCase
         $response->assertRedirect('/admin/login');
     }
 
-    public function testLoginedUserschangeFreezingStatus()
+    public function testLoginedUserschangeFreezingStatusSuccess()
     {
         $adminUser = Admin::factory()->create();
         User::factory()->create();
@@ -43,7 +41,7 @@ class AdminOperateUsersTest extends TestCase
         $response->assertJson(['message' => '凍結ステータスの変更に成功しました。']);
     }
 
-    public function testNotLoginedUserschangeFreezingStatus()
+    public function testNotLoginedUserschangeFreezingStatusFailed()
     {
         User::factory()->create();
 
@@ -53,4 +51,26 @@ class AdminOperateUsersTest extends TestCase
         $response->assertRedirect('/admin/login');
     }
 
+    public function testLoginedUserDestroySuccess()
+    {
+        $adminUser = Admin::factory()->create();
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($adminUser)
+        ->delete('/admin/users/3');
+
+        $this->assertDeleted($user);
+        $response->assertStatus(200);
+        $response->assertJson(['message' => 'アカウントの削除に成功しました。']);
+    }
+
+    public function testNotLoginedUserDestroyFailed()
+    {
+        User::factory()->create();
+
+        $response = $this->delete('/admin/users/1');
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/admin/login');
+    }
 }

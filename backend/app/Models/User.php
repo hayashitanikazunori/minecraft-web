@@ -57,6 +57,15 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->posts()->delete();
+        });
+    }
+
     public function updateUserFindById($id, $user)
     {
         /*************************************************
@@ -69,6 +78,12 @@ class User extends Authenticatable
         return $this->where([
             'id' => $id['id']
         ]);
+    }
+
+    public function userFindById($id)
+    {
+        $user = User::findOrFail($id);
+        return $user->delete();;
     }
 
     public function changeFreezingStatus($id)

@@ -17,6 +17,7 @@ Route::get('/admin/me', [MeController::class, 'checkAuthUser']);
 Route::middleware('auth:sanctum')->group(function () {
   Route::get('/admin/users', [AdminOperateUsersController::class, 'index']);
   Route::post('/admin/users/{id}/change-freezing-status', [AdminOperateUsersController::class, 'changeFreezingStatus']);
+  Route::delete('/admin/users/{id}', [AdminOperateUsersController::class, 'destroy']);
 });
 
 Route::post('/login', [UserSigninController::class, 'login'])->name('login');
