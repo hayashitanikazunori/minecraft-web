@@ -22,12 +22,12 @@ class UserSigninController extends Controller
 
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
-                return new JsonResponse(['message' => 'ログインしました' ]);
+                return new JsonResponse(['message' => 'ログインしました。' ]);
             }else {
                 return new JsonResponse([ 'message' => 'メールアドレスかパスワードが間違っています。']);
             }
         } catch (Exception $e){
-            return new JsonResponse([ 'message' => 'ログインに失敗しました。再度お試しください', 'errorMessage' => $e]);
+            return new JsonResponse([ 'message' => 'ログインに失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
     }
 }

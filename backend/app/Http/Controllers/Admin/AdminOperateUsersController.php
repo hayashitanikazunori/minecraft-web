@@ -16,7 +16,7 @@ class AdminOperateUsersController extends Controller
         try {
             return new AdminOperateUsersResource(User::all());
         } catch (Exception $e){
-            return new JsonResponse([ 'message' => '取得に失敗しました。再度お試しください', 'errorMessage' => $e]);
+            return new JsonResponse([ 'message' => '取得に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
     }
 
@@ -28,7 +28,7 @@ class AdminOperateUsersController extends Controller
             return new JsonResponse(['message' => '凍結ステータスの変更に成功しました。']);
 
         } catch (Exception $e){
-            return new JsonResponse([ 'message' => '変更に失敗しました。再度お試しください', 'errorMessage' => $e]);
+            return new JsonResponse([ 'message' => '変更に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
     }
 
@@ -40,7 +40,7 @@ class AdminOperateUsersController extends Controller
 
             return new JsonResponse(['message' => 'アカウントの削除に成功しました。' ]);
         } catch (Exception $e){
-            return new JsonResponse([ 'message' => 'アカウントの削除に失敗しました。再度お試しください', 'errorMessage' => $e]);
+            return new JsonResponse([ 'message' => 'アカウントの削除に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
     }
 }
