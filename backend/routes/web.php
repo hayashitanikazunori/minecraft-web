@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminSigninController;
 use App\Http\Controllers\Admin\AdminSignoutController;
 use App\Http\Controllers\Admin\MeController;
+use App\Http\Controllers\Admin\AdminOperatePostsController;
 use App\Http\Controllers\Admin\AdminOperateUsersController;
 use App\Http\Controllers\User\UserSigninController;
 use App\Http\Controllers\User\UserSignoutController;
@@ -18,6 +19,9 @@ Route::middleware('auth:sanctum')->group(function () {
   Route::get('/admin/users', [AdminOperateUsersController::class, 'index']);
   Route::post('/admin/users/{id}/change-freezing-status', [AdminOperateUsersController::class, 'changeFreezingStatus']);
   Route::delete('/admin/users/{id}', [AdminOperateUsersController::class, 'destroy']);
+  Route::get('/admin/posts', [AdminOperatePostsController::class, 'index']);
+  Route::post('/admin/posts/{id}/change-publicing-status', [AdminOperatePostsController::class, 'changepPublicingStatus']);
+  Route::delete('/admin/posts/{id}', [AdminOperatePostsController::class, 'destroy']);
 });
 
 Route::middleware('auth')->group(function () {

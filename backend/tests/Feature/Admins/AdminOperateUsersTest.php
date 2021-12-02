@@ -29,10 +29,12 @@ class AdminOperateUsersTest extends TestCase
         $response->assertRedirect('/admin/login');
     }
 
-    public function testLoginedUserschangeFreezingStatusSuccess()
+    public function testLoginedUsersChangeFreezingStatusSuccess()
     {
         $adminUser = Admin::factory()->create();
-        User::factory()->create();
+        User::factory()->create([
+            'id' => 1,
+        ]);
 
         $response = $this->actingAs($adminUser)
         ->post('/admin/users/1/change-freezing-status');
@@ -41,7 +43,7 @@ class AdminOperateUsersTest extends TestCase
         $response->assertJson(['message' => '凍結ステータスの変更に成功しました。']);
     }
 
-    public function testNotLoginedUserschangeFreezingStatusFailed()
+    public function testNotLoginedUsersChangeFreezingStatusFailed()
     {
         User::factory()->create();
 
@@ -54,10 +56,12 @@ class AdminOperateUsersTest extends TestCase
     public function testLoginedUserDestroySuccess()
     {
         $adminUser = Admin::factory()->create();
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'id' => 1,
+        ]);
 
         $response = $this->actingAs($adminUser)
-        ->delete('/admin/users/3');
+        ->delete('/admin/users/1');
 
         $this->assertDeleted($user);
         $response->assertStatus(200);

@@ -27,4 +27,33 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // public static function boot()
+    // {
+    //     parent::boot();
+
+    //     static::deleting(function ($user) {
+    //         $user->posts()->delete();
+    //     });
+    // }
+
+    public function postFindById($id)
+    {
+        $post = Post::findOrFail($id);
+        return $post->delete();
+    }
+
+    public function changepPublicingStatus($id)
+    {
+        $post = Post::findOrFail($id);
+
+        if ($post->publicing_status == 0) {
+            $post->publicing_status = 1;
+            return $post->save();
+        }else {
+            $post->publicing_status = 0;
+            return $post->save();
+        }
+    }
+
 }
