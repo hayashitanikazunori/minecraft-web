@@ -44,7 +44,7 @@ class UserController extends Controller
 
                 return new JsonResponse($json);
             } catch (Exception $e){
-            return new JsonResponse([ 'message' => '登録に失敗しました。再度お試しください', 'errorMessage' => $e]);
+            return new JsonResponse([ 'message' => '登録に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
     }
 
@@ -91,7 +91,7 @@ class UserController extends Controller
             return new JsonResponse($json);
 
             } catch (Exception $e) {
-            return new JsonResponse([ 'message' => '変更に失敗しました。再度お試しください', 'errorMessage' => $e]);
+            return new JsonResponse([ 'message' => '変更に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
     }
 
@@ -103,7 +103,7 @@ class UserController extends Controller
 
             return new JsonResponse(['message' => 'アカウントの削除に成功しました。' ]);
         } catch (Exception $e){
-            return new JsonResponse([ 'message' => 'アカウントの削除に失敗しました。再度お試しください', 'errorMessage' => $e]);
+            return new JsonResponse([ 'message' => 'アカウントの削除に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
     }
 }

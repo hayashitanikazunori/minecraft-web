@@ -21,7 +21,7 @@ class UserSignoutController extends Controller
 
             return new JsonResponse([ 'message' => 'ログアウトしました。']);
         } catch (Exception $e){
-            return new JsonResponse([ 'message' => 'ログアウトに失敗しました。再度お試しください', 'errorMessage' => $e]);
+            return new JsonResponse([ 'message' => 'ログアウトに失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
     }
 }

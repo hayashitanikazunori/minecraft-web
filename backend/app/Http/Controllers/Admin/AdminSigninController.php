@@ -25,9 +25,9 @@ class AdminSigninController extends Controller
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
             $check = Auth::guard('admin')->id();
-            return new JsonResponse(['message' => 'ログインしました' ]);
+            return new JsonResponse(['message' => 'ログインしました。' ]);
         }
 
-        throw new Exception('ログインに失敗しました。再度お試しください');
+        throw new Exception('ログインに失敗しました。再度お試しください。');
     }
 }

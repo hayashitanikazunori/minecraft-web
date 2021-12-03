@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class AdminFactory extends Factory
 {
@@ -14,7 +15,7 @@ class AdminFactory extends Factory
     {
         return [
             'email' => 'admin@example.com',
-            'password' => bcrypt('password'),
+            'password' => Hash::make('password'),
         ];
     }
 }

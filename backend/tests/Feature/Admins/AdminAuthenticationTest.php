@@ -11,7 +11,7 @@ class AdminAuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testLoginSuccess()
+    public function testAdminLoginSuccess()
     {
         Admin::factory()->create([
             'email' => 'admin@example.com',
@@ -24,10 +24,10 @@ class AdminAuthenticationTest extends TestCase
         ]);
 
         $response->assertStatus(200);
-        $response->assertJson(['message' => 'ログインしました']);
+        $response->assertJson(['message' => 'ログインしました。']);
     }
 
-    public function testLoginFailed()
+    public function testAdminLoginFailed()
     {
         Admin::factory()->create([
             'email' => 'admin@example.com',
@@ -40,10 +40,10 @@ class AdminAuthenticationTest extends TestCase
         ]);
 
         $response->assertStatus(500);
-        $response->assertJson(['message' => 'ログインに失敗しました。再度お試しください']);
+        $response->assertJson(['message' => 'ログインに失敗しました。再度お試しください。']);
     }
 
-    public function testLogoutSuccess()
+    public function testAdminLogoutSuccess()
     {
         $adminUser = Admin::factory()->create();
 
@@ -51,7 +51,6 @@ class AdminAuthenticationTest extends TestCase
             ->post('/admin/logout');
 
         $response->assertStatus(200);
-        $response->assertJson(['message' => 'ログアウトしました']);
+        $response->assertJson(['message' => 'ログアウトしました。']);
     }
-
 }

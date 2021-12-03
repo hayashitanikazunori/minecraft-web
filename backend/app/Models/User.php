@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\JsonResponse;
 
 class User extends Authenticatable
 {
@@ -46,16 +47,55 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->posts()->delete();
+        });
+    }
+
     public function updateUserFindById($id, $user)
     {
+        /*************************************************
+         * TODO
+         * User/controllerにデータベースの処理を記述してるままなので、
+         * モデルに処理を移す時にここの処理を使うこと。
+         * 未検証なので、再調整は必須である。
+        *************************************************/
         // return $this->find($id);
         return $this->where([
             'id' => $id['id']
         ]);
+    }
+
+    public function userFindById($id)
+    {
+        $user = User::findOrFail($id);
+        return $user->delete();;
+    }
+
+    public function changeFreezingStatus($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->freezing_status == 0) {
+            $user->freezing_status = 1;
+            return $user->save();
+        }else {
+            $user->freezing_status = 0;
+            return $user->save();
+        }
     }
 }
