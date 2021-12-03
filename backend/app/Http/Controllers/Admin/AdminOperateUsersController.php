@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Http\Resources\AdminOperateUsersResource;
+use App\Http\Resources\AdminOperateUsersCollection;
 use Illuminate\Http\JsonResponse;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class AdminOperateUsersController extends Controller
     public function index()
     {
         try {
-            return new AdminOperateUsersResource(User::all());
+            return new AdminOperateUsersCollection(User::all());
         } catch (Exception $e){
             return new JsonResponse([ 'message' => '取得に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }

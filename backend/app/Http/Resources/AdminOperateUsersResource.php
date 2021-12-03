@@ -11,6 +11,13 @@ class AdminOperateUsersResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'postsCount' => $this->posts->count(),
+            'freezingStatus' => $this->freezing_status,
+            'createdAt' => $this->created_at->format('Y/m/d H:i'),
+        ];
     }
 }
