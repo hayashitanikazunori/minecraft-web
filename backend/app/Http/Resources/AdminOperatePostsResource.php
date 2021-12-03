@@ -11,6 +11,12 @@ class AdminOperatePostsResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'publicingStatus' => $this->publicing_status,
+            'postBy' => $this->user->name,
+            'createdAt' => $this->created_at->format('Y/m/d H:i'),
+        ];
     }
 }

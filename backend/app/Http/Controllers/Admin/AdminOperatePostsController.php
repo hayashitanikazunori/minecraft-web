@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
-use App\Http\Resources\AdminOperatePostsResource;
+use App\Http\Resources\AdminOperatePostsCollection;
 use Illuminate\Http\JsonResponse;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class AdminOperatePostsController extends Controller
     public function index()
     {
         try {
-            return new AdminOperatePostsResource(Post::all());
+            return new AdminOperatePostsCollection(Post::all());
         } catch (Exception $e){
             return new JsonResponse([ 'message' => '取得に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
