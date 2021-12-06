@@ -38,3 +38,7 @@ Route::resource('users', UserController::class)->only([
 Route::resource('posts', PostController::class)->only([
   'index', 'store', 'show', 'update', 'destroy'
 ]);
+
+Route::resource('favorites', PostController::class)->only([
+  'store', 'destroy'
+]);
