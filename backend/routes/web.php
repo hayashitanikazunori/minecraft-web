@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminSignoutController;
 use App\Http\Controllers\Admin\MeController;
 use App\Http\Controllers\Admin\AdminOperatePostsController;
 use App\Http\Controllers\Admin\AdminOperateUsersController;
+use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\User\UserSigninController;
 use App\Http\Controllers\User\UserSignoutController;
 use App\Http\Controllers\User\UserMeController;
@@ -32,4 +33,8 @@ Route::middleware('auth')->group(function () {
 Route::post('/login', [UserSigninController::class, 'login'])->name('login');
 Route::resource('users', UserController::class)->only([
   'store', 'show', 'update', 'destroy'
+]);
+
+Route::resource('posts', PostController::class)->only([
+  'index', 'store', 'show', 'update', 'destroy'
 ]);

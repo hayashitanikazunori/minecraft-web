@@ -36,7 +36,7 @@ class AdminOperatePostsController extends Controller
     {
         try {
             $post = new Post;
-            $post->postFindById($id);
+            $post->postDelete($id);
 
             return new JsonResponse(['message' => '投稿の削除に成功しました。' ]);
         } catch (Exception $e){

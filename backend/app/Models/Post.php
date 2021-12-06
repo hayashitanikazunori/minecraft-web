@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -16,6 +17,7 @@ class Post extends Model
         'material',
         'recipe',
         'publicing_status',
+        'user_id',
     ];
 
     public function admin()
@@ -28,16 +30,12 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public static function boot()
-    // {
-    //     parent::boot();
-
-    //     static::deleting(function ($user) {
-    //         $user->posts()->delete();
-    //     });
-    // }
-
     public function postFindById($id)
+    {
+        return Post::findOrFail($id);
+    }
+
+    public function postDelete($id)
     {
         $post = Post::findOrFail($id);
         return $post->delete();
@@ -56,4 +54,19 @@ class Post extends Model
         }
     }
 
+    public function postCreate($request)
+    {
+        $user_id = Auth::id();
+        $image_path = $request['thumbnail_images']->store('public/thumbnail/');
+
+        return Post::create([
+            'title' => $request['title'],
+            'thumbnail_images' => basename($image_path),
+            'description' => $request['description'],
+            'material' => $request['material'],
+            'recipe' => $request['recipe'],
+            'publicing_status' => 0,
+            'user_id' => $user_id,
+        ]);
+    }
 }

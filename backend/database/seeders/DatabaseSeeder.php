@@ -17,9 +17,8 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             UserSeeder::class,
             PostSeeder::class,
-            // AnnouncementSeeder::class,
-            // CommentSeeder::class,
-            // FavoriteSeeder::class,
+            CommentSeeder::class,
+            FavoriteSeeder::class,
         ]);
     }
 }
