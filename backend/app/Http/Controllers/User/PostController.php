@@ -46,14 +46,11 @@ class PostController extends Controller
         }
     }
 
-    public function show($id): JsonResponse
+    public function show($id)
     {
-        /*************************************************
-         * TODO
-         * PostsResourceが機能していないのでエラーが発生する
-        *************************************************/
         try {
-            $post = Post::findOrFail($id);
+            $post = new Post;
+            $post = $post->postFindById($id);
 
             return new PostsResource($post);
             } catch (Exception $e){
