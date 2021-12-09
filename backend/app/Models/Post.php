@@ -69,4 +69,20 @@ class Post extends Model
             'user_id' => $user_id,
         ]);
     }
+
+    public function postUpdate($request, $id)
+    {
+        $user_id = Auth::id();
+        $image_path = $request['thumbnail_images']->store('public/thumbnail/');
+
+        $post = Post::find($id);
+        $post->title = $request['title'];
+        $post->thumbnail_images = $request['thumbnail_images'];
+        $post->description = $request['description'];
+        $post->material = $request['material'];
+        $post->publicing_status = 0;
+        $post->user_id = $user_id;
+
+        return $post->save();
+    }
 }

@@ -20,7 +20,6 @@ class PostCreateRequest extends FormRequest
             'material' => 'required|max:255',
             'recipe' => 'required|max:255',
             'publicing_status' => 'prohibited',
-            'user_id' => 'required',
         ];
     }
 
@@ -36,7 +35,6 @@ class PostCreateRequest extends FormRequest
             'recipe.required' => '作り方は入力必須です。',
             'recipe.max:255' => '作り方は255文字以内で入力してください。',
             'publicing_status.prohibited' => '公開ステータスは値を含めないでください。',
-            'user_id.required' => 'ログインしてください。',
         ];
     }
 }
