@@ -25,7 +25,7 @@ class PostControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testLoginedPostUpdateSuccess()
+    public function testLoginedPutUpdateSuccess()
     {
         /*************************************************
          * TODO
