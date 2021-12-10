@@ -35,7 +35,7 @@ class UserRegisterRequest extends FormRequest
             'avatar_image.required' => '画像は必須です。',
             'profile.required' => 'プロフィールは必須です。',
             'profile.max' => 'プロフィールは最1000文字以下で入力してください。',
-            'freezing_status.prohibited' => '値を含めないでください。',
+            'freezing_status.prohibited' => '凍結ステータスは値を含めないでください。',
         ];
     }
 }

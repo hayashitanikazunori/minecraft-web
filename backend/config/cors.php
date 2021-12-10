@@ -20,6 +20,8 @@ return [
         '/admin/*',
         '/register',
         '/users',
+        '/posts',
+        '/posts/*',
         '/users/*',
         '/login*',
         '/logout',

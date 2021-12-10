@@ -9,6 +9,6 @@ class AdminSeeder extends Seeder
 {
     public function run()
     {
-        Admin::factory()->count(100)->create();
+        Admin::factory()->create();
     }
 }
