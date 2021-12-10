@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminSignoutController;
 use App\Http\Controllers\Admin\MeController;
 use App\Http\Controllers\Admin\AdminOperatePostsController;
 use App\Http\Controllers\Admin\AdminOperateUsersController;
+use App\Http\Controllers\User\FavoriteController;
 use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\User\UserSigninController;
 use App\Http\Controllers\User\UserSignoutController;
@@ -35,10 +36,17 @@ Route::resource('users', UserController::class)->only([
   'store', 'show', 'update', 'destroy'
 ]);
 
+/*************************************************
+ * TODO
+ * 一通り実装が終わったらauth.middlewareに追加すること。
+*************************************************/
 Route::resource('posts', PostController::class)->only([
   'index', 'store', 'show', 'update', 'destroy'
 ]);
 
-Route::resource('favorites', PostController::class)->only([
-  'store', 'destroy'
-]);
+/*************************************************
+ * TODO
+ * 一通り実装が終わったらauth.middlewareに追加すること。
+*************************************************/
+Route::post('favorites/{id}', [FavoriteController::class, 'store'])->name('favorites.store');
+Route::delete('favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
