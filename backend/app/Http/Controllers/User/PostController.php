@@ -28,6 +28,7 @@ class PostController extends Controller
         /*************************************************
          * TODO
          * $jsonの'data' => $userについては頃合いを見て削除すること。
+         * バリデーションエラーが発生している。
         *************************************************/
         try {
                 $validate = $request->validated();
@@ -46,14 +47,11 @@ class PostController extends Controller
         }
     }
 
-    public function show($id): JsonResponse
+    public function show($id)
     {
-        /*************************************************
-         * TODO
-         * PostsResourceが機能していないのでエラーが発生する
-        *************************************************/
         try {
-            $post = Post::findOrFail($id);
+            $post = new Post;
+            $post = $post->postFindById($id);
 
             return new PostsResource($post);
             } catch (Exception $e){
@@ -61,40 +59,24 @@ class PostController extends Controller
         }
     }
 
-    // public function update(UserRegisterRequest $request, $id): JsonResponse
-    // {
-    //     /*************************************************
-    //      * TODO
-    //      * リファクタリングをしたい。
-    //      * DBとのやりとりはModelに移したい。
-    //      * formRequestがregisterを使っているので、update用のformRequestを作ること。
-    //      * imgaesの参照先は下記のファイルを参考にすること。
-    //      * https://qiita.com/koru1893/items/1d2f522e20744b03e3ad
-    //      * https://qiita.com/___yusuke49/items/9f6f64c7f800b8e77e7d
-    //     *************************************************/
-    //     try {
-    //         $request->validated();
-    //         $image_path = $request->avatar_image->store('public/avatar/');
+    public function update(PostCreateRequest $request, $id)
+    {
+        try {
+            $validate = $request->validated();
 
-    //         $user = User::find($id);
-    //         $user->name = $request->name;
-    //         $user->email = $request->email;
-    //         $user->password = Hash::make($request->password);
-    //         $user->avatar_image = basename($image_path);
-    //         $user->profile = $request->profile;
-    //         $user->save();
+            $post = new Post;
+            $postUpdate = $post->postUpdate($validate, $id);
 
-    //         $json = [
-    //             'userUpdate' => $user,
-    //             'message' => '変更に成功しました。',
-    //         ];
+            $json = [
+                'userUpdate' => $postUpdate,
+                'message' => '変更に成功しました。',
+            ];
 
-    //         return new JsonResponse($json);
-
-    //         } catch (Exception $e) {
-    //         return new JsonResponse([ 'message' => '変更に失敗しました。再度お試しください。', 'errorMessage' => $e]);
-    //     }
-    // }
+            return new JsonResponse($json);
+            } catch (Exception $e) {
+            return new JsonResponse([ 'message' => '変更に失敗しました。再度お試しください。', 'errorMessage' => $e]);
+        }
+    }
 
     public function destroy($id): JsonResponse
     {
