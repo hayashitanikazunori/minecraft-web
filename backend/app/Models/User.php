@@ -71,18 +71,9 @@ class User extends Authenticatable
         });
     }
 
-    public function updateUserFindById($id, $user)
+    public function getUserById($id)
     {
-        /*************************************************
-         * TODO
-         * User/controllerにデータベースの処理を記述してるままなので、
-         * モデルに処理を移す時にここの処理を使うこと。
-         * 未検証なので、再調整は必須である。
-        *************************************************/
-        // return $this->find($id);
-        return $this->where([
-            'id' => $id['id']
-        ]);
+        return User::findOrFail($id);
     }
 
     public function userFindById($id)

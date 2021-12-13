@@ -90,4 +90,9 @@ class Post extends Model
 
         return $post->save();
     }
+
+    public function getPostsWhereByUserId($id)
+    {
+        return Post::where('user_id', $id)->get();
+    }
 }

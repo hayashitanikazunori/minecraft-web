@@ -33,6 +33,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/login', [UserSigninController::class, 'login'])->name('login');
+/*************************************************
+ * TODO
+ * 一通り実装が終わったらauth.middlewareに追加すること。
+*************************************************/
 Route::resource('users', UserController::class)->only([
   'store', 'show', 'update', 'destroy'
 ]);
@@ -59,5 +63,4 @@ Route::delete('favorites/{id}', [FavoriteController::class, 'destroy'])->name('f
 Route::resource('comments', CommentController::class)->only([
   'update', 'destroy'
 ]);
-
 Route::post('comments/{id}', [CommentController::class, 'store'])->name('comments.store');
