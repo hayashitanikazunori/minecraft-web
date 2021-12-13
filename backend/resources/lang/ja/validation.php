@@ -103,6 +103,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+
     ],
 
     /*
@@ -121,5 +122,4 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード'
     ],
-
 ];

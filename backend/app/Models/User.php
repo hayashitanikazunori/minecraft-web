@@ -71,6 +71,25 @@ class User extends Authenticatable
         });
     }
 
+    public function userCreatedCheck($email)
+    {
+        return User::where('email', $email)->count();
+    }
+
+    public function userCreate($request)
+    {
+        $initial_avatar = 'initial_image.png';
+
+        return User::create([
+            'name' => 'ゲスト',
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'avatar_image' => $initial_avatar,
+            'profile' => 'よろしくお願いします。',
+            'freezing_status' => 0,
+        ]);
+    }
+
     public function getUserById($id)
     {
         return User::findOrFail($id);
