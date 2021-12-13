@@ -57,6 +57,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public static function boot()
     {
         parent::boot();
@@ -66,18 +71,9 @@ class User extends Authenticatable
         });
     }
 
-    public function updateUserFindById($id, $user)
+    public function getUserById($id)
     {
-        /*************************************************
-         * TODO
-         * User/controllerにデータベースの処理を記述してるままなので、
-         * モデルに処理を移す時にここの処理を使うこと。
-         * 未検証なので、再調整は必須である。
-        *************************************************/
-        // return $this->find($id);
-        return $this->where([
-            'id' => $id['id']
-        ]);
+        return User::findOrFail($id);
     }
 
     public function userFindById($id)

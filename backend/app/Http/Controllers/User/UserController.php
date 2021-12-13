@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
+use App\Models\Post;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\PostsCollection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Exception;
@@ -51,13 +54,23 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            $user = User::find($id);
+            $user = new User;
+            $user = $user->getUserById($id);
+            $userDate = new UserResource($user);
 
-            return new JsonResponse($user);
-            } catch (Exception $e){
-                return new JsonResponse([ 'message' => '取得に失敗しました。再度お試しください。', 'errorMessage' => $e]);
+            $posts = new Post;
+            $posts = $posts->getPostsWhereByUserId($user->id);
+            $postsDate = new PostsCollection($posts);
+
+            $json = [
+                'userDate' => $userDate,
+                'postsDate' => $postsDate,
+            ];
+
+            return $json;
+        } catch (Exception $e){
+            return new JsonResponse([ 'message' => '取得に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
-
     }
 
     public function update(UserRegisterRequest $request, $id): JsonResponse

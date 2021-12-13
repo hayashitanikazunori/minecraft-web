@@ -30,6 +30,11 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function postFindById($id)
     {
         return Post::findOrFail($id);
@@ -84,5 +89,10 @@ class Post extends Model
         $post->user_id = $user_id;
 
         return $post->save();
+    }
+
+    public function getPostsWhereByUserId($id)
+    {
+        return Post::where('user_id', $id)->get();
     }
 }

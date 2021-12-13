@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminSignoutController;
 use App\Http\Controllers\Admin\MeController;
 use App\Http\Controllers\Admin\AdminOperatePostsController;
 use App\Http\Controllers\Admin\AdminOperateUsersController;
+use App\Http\Controllers\User\CommentController;
 use App\Http\Controllers\User\FavoriteController;
 use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\User\UserSigninController;
@@ -32,6 +33,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/login', [UserSigninController::class, 'login'])->name('login');
+/*************************************************
+ * TODO
+ * 一通り実装が終わったらauth.middlewareに追加すること。
+*************************************************/
 Route::resource('users', UserController::class)->only([
   'store', 'show', 'update', 'destroy'
 ]);
@@ -50,3 +55,12 @@ Route::resource('posts', PostController::class)->only([
 *************************************************/
 Route::post('favorites/{id}', [FavoriteController::class, 'store'])->name('favorites.store');
 Route::delete('favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+
+/*************************************************
+ * TODO
+ * 一通り実装が終わったらauth.middlewareに追加すること。
+*************************************************/
+Route::resource('comments', CommentController::class)->only([
+  'update', 'destroy'
+]);
+Route::post('comments/{id}', [CommentController::class, 'store'])->name('comments.store');
