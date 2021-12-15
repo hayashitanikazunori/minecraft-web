@@ -76,6 +76,11 @@ class User extends Authenticatable
         return User::all();
     }
 
+    public function getUserById($id)
+    {
+        return User::findOrFail($id);
+    }
+
     public function userCreatedCheck($email)
     {
         return User::where('email', $email)->count();
@@ -95,15 +100,24 @@ class User extends Authenticatable
         ]);
     }
 
-    public function getUserById($id)
+    public function userUpdate($request,  $id)
     {
-        return User::findOrFail($id);
+        $image_path = $request['avatar_image']->store('public/avatar/');
+
+        $user = User::findOrFail($id);
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->password = Hash::make($request['password']);
+        $user->avatar_image = basename($image_path);
+        $user->profile = $request['profile'];
+
+        return $user->save();
     }
 
-    public function userFindById($id)
+    public function userDelete($id)
     {
-        $user = User::findOrFail($id);
-        return $user->delete();;
+        $user = User::find($id);
+        return $user->delete();
     }
 
     public function changeFreezingStatus($id)

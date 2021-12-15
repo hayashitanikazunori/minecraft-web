@@ -39,7 +39,7 @@ class AdminOperateUsersController extends Controller
     {
         try {
             $user = new User;
-            $user->userFindById($id);
+            $user->userDelete($id);
 
             return new JsonResponse(['message' => 'アカウントの削除に成功しました。' ]);
         } catch (Exception $e){

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\JsonResponse;
 use Exception;
 
 class UserSignoutController extends Controller
@@ -14,9 +14,7 @@ class UserSignoutController extends Controller
     {
         try {
             Auth::logout();
-
             $request->session()->invalidate();
-
             $request->session()->regenerateToken();
 
             return new JsonResponse([ 'message' => 'ログアウトしました。']);

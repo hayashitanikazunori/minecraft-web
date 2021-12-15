@@ -15,7 +15,6 @@ class Favorite extends Model
         'post_id',
     ];
 
-
     public function admin()
     {
         return $this->belongsTo(Admin::class);
