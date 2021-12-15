@@ -3,15 +3,25 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
+use App\Http\Resources\User\UserMeResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\JsonResponse;
+use Exception;
 
 class UserMeController extends Controller
 {
-    public function checkAuthUser(): JsonResponse
+    public function getUserMe()
     {
-        $user = Auth::guard('web')->user();
+        try {
+            $user = Auth::guard('web')->user();
 
-        return new JsonResponse([ $user ]);
+            if ($user != null) {
+                return new UserMeResource($user);
+            }else {
+                return new JsonResponse([ 'message' => 'ログインしていません。']);
+            }
+        } catch (Exception $e){
+            return new JsonResponse([ 'message' => 'ログインユーザーの取得に失敗しました。再度お試しください。', 'errorMessage' => $e]);
+        }
     }
 }
