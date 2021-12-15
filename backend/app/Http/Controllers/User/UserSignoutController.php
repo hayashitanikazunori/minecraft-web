@@ -14,7 +14,9 @@ class UserSignoutController extends Controller
     {
         try {
             Auth::logout();
+
             $request->session()->invalidate();
+
             $request->session()->regenerateToken();
 
             return new JsonResponse([ 'message' => 'ログアウトしました。']);

@@ -12,6 +12,11 @@ class UserSigninController extends Controller
 {
     public function login(UserLoginRequest $request): JsonResponse
     {
+        /*************************************************
+         * TODO
+         * リファクタリングをしたい。
+         * バリデーションをフォームリクエストに移したい。
+        *************************************************/
         try {
             $credentials = $request->validated();
 
