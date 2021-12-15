@@ -81,6 +81,12 @@ class User extends Authenticatable
         return User::findOrFail($id);
     }
 
+    public function userFreezingStatusFindByEmail($email)
+    {
+        $user = User::where('email', $email)->first();
+        return $user->freezing_status;
+    }
+
     public function userCreatedCheck($email)
     {
         return User::where('email', $email)->count();
