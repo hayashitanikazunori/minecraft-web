@@ -70,6 +70,11 @@ class User extends Authenticatable
         });
     }
 
+    public function getAllUsers()
+    {
+        return User::all();
+    }
+
     public function userCreatedCheck($email)
     {
         return User::where('email', $email)->count();

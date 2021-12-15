@@ -3,31 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Exception;
+use \App\Http\Requests\AdminLoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Exception;
 
 class AdminSigninController extends Controller
 {
-    public function login(Request $request): JsonResponse
+    public function login(AdminLoginRequest $request): JsonResponse
     {
-    /*************************************************
-     * TODO
-     * リファクタリングをしたい。
-     * バリデーションをフォームリクエストに移したい。
-    *************************************************/
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => 'required',
-        ]);
+        try {
+            $credentials = $request->validated();
 
-        if (Auth::guard('admin')->attempt($credentials)) {
-            $request->session()->regenerate();
-            $check = Auth::guard('admin')->id();
-            return new JsonResponse(['message' => 'ログインしました。' ]);
+            if (Auth::guard('admin')->attempt($credentials)) {
+                $request->session()->regenerate();
+                Auth::guard('admin')->id();
+                return new JsonResponse(['message' => 'ログインしました。' ]);
+            }else {
+                return new JsonResponse([ 'message' => 'メールアドレスかパスワードが間違っています。']);
+            }
+        } catch (Exception $e){
+            return new JsonResponse([ 'message' => 'ログインに失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
-
-        throw new Exception('ログインに失敗しました。再度お試しください。');
     }
 }
