@@ -22,3 +22,14 @@ resourceオプションをつけるとCRUDのfuncを用意してくれる。
 
 ##### FeatureTestファイルの作成
 `docker compose exec app php artisan make:test テストファイル名`  
+
+## 実装ルール
+#### useファイルの並び順
+useで呼び出す場合の配置は下記をベースとする。
+コントローラー
+モデル
+リクエストファイル
+リソースファイル(コレクションファイル)
+その他のファイル
+JsonResponse
+Exception

@@ -4,17 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Illuminate\Http\Request;
 use App\Http\Resources\AdminOperatePostsCollection;
 use Illuminate\Http\JsonResponse;
 use Exception;
-use Illuminate\Http\Request;
 
 class AdminOperatePostsController extends Controller
 {
     public function index()
     {
         try {
-            return new AdminOperatePostsCollection(Post::all());
+            $posts = new Post;
+            $posts = $posts->getAllPosts();
+
+            return new AdminOperatePostsCollection($posts);
         } catch (Exception $e){
             return new JsonResponse([ 'message' => '取得に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
@@ -25,10 +28,10 @@ class AdminOperatePostsController extends Controller
         try {
             $post = new Post;
             $post->changepPublicingStatus($id);
-            return new JsonResponse(['message' => '公開ステータスの変更に成功しました。']);
 
+            return new JsonResponse(['message' => '公開ステータスの変更に成功しました。']);
         } catch (Exception $e){
-            return new JsonResponse([ 'message' => '変更に失敗しました。再度お試しください。', 'errorMessage' => $e]);
+            return new JsonResponse([ 'message' => '公開ステータスの変更に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
     }
 

@@ -14,11 +14,18 @@ use App\Http\Controllers\User\UserSignoutController;
 use App\Http\Controllers\User\UserMeController;
 use App\Http\Controllers\User\UserController;
 
+/*************************************************
+ * TODO
+ * auth:sanctumのmiddlewareを使用するとuser側の
+ * Auth:checkが行われる。
+ * AdminAuthのmiddlewareを作成してルート保護の棲み分けをすること。
+*************************************************/
+
 Route::post('/admin/login', [AdminSigninController::class, 'login'])->name('admin.login');
 Route::get('/admin/me', [MeController::class, 'checkAuthUser']);
+Route::post('/admin/logout', [AdminSignoutController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
-  Route::post('/admin/logout', [AdminSignoutController::class, 'logout']);
   Route::get('/admin/users', [AdminOperateUsersController::class, 'index']);
   Route::post('/admin/users/{id}/change-freezing-status', [AdminOperateUsersController::class, 'changeFreezingStatus']);
   Route::delete('/admin/users/{id}', [AdminOperateUsersController::class, 'destroy']);
