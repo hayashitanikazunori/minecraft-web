@@ -14,7 +14,7 @@ class UserCreateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'name' => 'prohibited',
+            'name' => 'required|max:20',
             'email' => 'required|email',
             'password' => 'required|max:20|min:8',
             'avatar_image' => 'prohibited',
@@ -25,7 +25,8 @@ class UserCreateRequest extends ApiRequest
 
     public function messages() {
         return [
-            'name.prohibited' => 'ユーザー名は値を含めないでください。',
+            'name.required' => 'ユーザー名は必須です。',
+            'name.max' => 'ユーザー名は最大20文字以下で入力してください。',
             'email.required' => 'メールアドレスは必須です。',
             'email.email' => 'メールアドレスはメールアドレスの形式で入力してください。',
             'password.required' => 'パスワードは必須です。',

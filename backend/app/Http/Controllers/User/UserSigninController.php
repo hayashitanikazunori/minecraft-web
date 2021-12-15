@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use \App\Http\Requests\UserLoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
@@ -16,8 +17,20 @@ class UserSigninController extends Controller
             $credentials = $request->validated();
 
             if (Auth::attempt($credentials)) {
-                $request->session()->regenerate();
-                return new JsonResponse(['message' => 'ログインしました。' ]);
+                $user = new User;
+                $userFreezingStatus = $user->userFreezingStatusFindByEmail($credentials['email']);
+
+                if ($userFreezingStatus == 0) {
+                    $request->session()->regenerate();
+
+                    return new JsonResponse(['message' => 'ログインしました。' ]);
+                }else {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    return new JsonResponse(['message' => '凍結されています。運営にお問い合わせしてください。' ]);
+                }
             }else {
                 return new JsonResponse([ 'message' => 'メールアドレスかパスワードが間違っています。']);
             }

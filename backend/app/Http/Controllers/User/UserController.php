@@ -66,7 +66,7 @@ class UserController extends Controller
             $user = $user->userUpdate($credentials, $id);
 
             return new JsonResponse(['message' => '変更に成功しました。' ]);
-            } catch (Exception $e) {
+        } catch (Exception $e) {
             return new JsonResponse([ 'message' => '変更に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
     }
