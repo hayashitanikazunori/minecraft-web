@@ -35,6 +35,11 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function getAllPosts()
+    {
+        return Post::all();
+    }
+
     public function postFindById($id)
     {
         return Post::findOrFail($id);
@@ -82,7 +87,7 @@ class Post extends Model
 
         $post = Post::find($id);
         $post->title = $request['title'];
-        $post->thumbnail_images = $request['thumbnail_images'];
+        $post->thumbnail_images = $image_path;
         $post->description = $request['description'];
         $post->material = $request['material'];
         $post->publicing_status = 0;
