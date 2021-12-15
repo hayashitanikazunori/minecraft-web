@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Post;
-use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Comment;
 use \App\Http\Requests\PostCreateRequest;
-use \App\Http\Requests\PostUpdateRequest;
 use App\Http\Resources\User\PostsCollection;
 use App\Http\Resources\User\CommentsCollection;
 use App\Http\Resources\User\PostsResource;
@@ -19,10 +19,7 @@ class PostController extends Controller
     public function index()
     {
         try {
-            $posts = new Post;
-            $posts = $posts->getAllPosts();
-
-            return new PostsCollection($posts);
+            return new PostsCollection(Post::all());
         } catch (Exception $e){
             return new JsonResponse([ 'message' => '取得に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
@@ -30,13 +27,23 @@ class PostController extends Controller
 
     public function store(PostCreateRequest $request): JsonResponse
     {
+        /*************************************************
+         * TODO
+         * $jsonの'data' => $userについては頃合いを見て削除すること。
+         * バリデーションエラーが発生している。
+        *************************************************/
         try {
-            $credentials = $request->validated();
+            $validate = $request->validated();
 
             $post = new Post;
-            $post = $post->postCreate($credentials);
+            $createPost = $post->postCreate($validate);
 
-            return new JsonResponse([ 'message' => '投稿に成功しました。']);
+            $json = [
+                'data' => $createPost,
+                'message' => '投稿に成功しました。',
+            ];
+
+            return new JsonResponse($json);
         } catch (Exception $e){
             return new JsonResponse([ 'message' => '投稿に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }
@@ -64,15 +71,20 @@ class PostController extends Controller
         }
     }
 
-    public function update(PostUpdateRequest $request, $id)
+    public function update(PostCreateRequest $request, $id)
     {
         try {
-            $credentials = $request->validated();
+            $validate = $request->validated();
 
             $post = new Post;
-            $post = $post->postUpdate($credentials, $id);
+            $postUpdate = $post->postUpdate($validate, $id);
 
-            return new JsonResponse(['message' => '変更に成功しました。']);
+            $json = [
+                'userUpdate' => $postUpdate,
+                'message' => '変更に成功しました。',
+            ];
+
+            return new JsonResponse($json);
         } catch (Exception $e) {
             return new JsonResponse([ 'message' => '変更に失敗しました。再度お試しください。', 'errorMessage' => $e]);
         }

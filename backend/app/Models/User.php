@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\JsonResponse;
 
 class User extends Authenticatable
 {
@@ -94,24 +95,10 @@ class User extends Authenticatable
         return User::findOrFail($id);
     }
 
-    public function userUpdate($request,  $id)
+    public function userFindById($id)
     {
-        $image_path = $request['avatar_image']->store('public/avatar/');
-
         $user = User::findOrFail($id);
-        $user->name = $request['name'];
-        $user->email = $request['email'];
-        $user->password = Hash::make($request['password']);
-        $user->avatar_image = basename($image_path);
-        $user->profile = $request['profile'];
-
-        return $user->save();
-    }
-
-    public function userDelete($id)
-    {
-        $user = User::find($id);
-        return $user->delete();
+        return $user->delete();;
     }
 
     public function changeFreezingStatus($id)
