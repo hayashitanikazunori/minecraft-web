@@ -94,27 +94,33 @@ class User extends Authenticatable
 
     public function userCreate($request)
     {
-        $initial_avatar = 'initial_image.png';
-
         return User::create([
-            'name' => 'ゲスト',
+            'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
-            'avatar_image' => $initial_avatar,
-            'profile' => 'よろしくお願いします。',
+            'avatar_image' => null,
+            'profile' => null,
             'freezing_status' => 0,
         ]);
     }
 
     public function userUpdate($request,  $id)
     {
-        $image_path = $request['avatar_image']->store('public/avatar/');
+        function avatarImageCheck($request)
+        {
+            if ($request == true) {
+            $image_path = $request->store('public/avatar/');
+            return basename($image_path);
+            }else {
+                return '';
+            }
+        }
 
         $user = User::findOrFail($id);
         $user->name = $request['name'];
         $user->email = $request['email'];
         $user->password = Hash::make($request['password']);
-        $user->avatar_image = basename($image_path);
+        $user->avatar_image = avatarImageCheck($request['avatar_image']);
         $user->profile = $request['profile'];
 
         return $user->save();
